@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gigi & Miss Hootie - Çocuklar İçin İngilizce Macera Dünyası</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent: #FFE66D;
+            --dark: #2C3E50;
+            --light: #F7F9FC;
+            --fun-purple: #9B5DE5;
+            --success: #2ecc71;
+            --error: #e74c3c;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Fredoka', cursive, sans-serif; }
+        body { background-color: var(--light); color: var(--dark); padding: 15px; }
+        header {
+            text-align: center; padding: 25px;
+            background: linear-gradient(135deg, var(--primary), var(--fun-purple));
+            color: white; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 20px;
+        }
+        header h1 { font-size: 2rem; margin-bottom: 8px; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
+        .container { max-width: 900px; margin: 0 auto; }
+        
+        .age-selector {
+            display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;
+        }
+        .age-btn {
+            background: white; border: 3px solid #ddd; padding: 12px 20px;
+            border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer;
+            transition: all 0.3s ease; color: var(--dark);
+        }
+        .age-btn.active, .age-btn:hover {
+            background: var(--secondary); border-color: var(--secondary); color: white; transform: translateY(-3px);
+        }
+        
+        .section {
+            display: none; background: white; padding: 25px; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); animation: fadeIn 0.4s ease;
+        }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        h2 { color: var(--fun-purple); margin-bottom: 15px; font-size: 1.5rem; }
+        .btn {
+            background: var(--primary); color: white; border: none; padding: 12px 25px;
+            border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 1.1rem;
+            transition: transform 0.2s, background 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .btn:hover { background: #ff5252; transform: scale(1.03); }
+        
+        /* 4-6 Yaş Özel Tasarım */
+        .kids-game-box {
+            background: #fff9e6; border: 3px dashed var(--accent); border-radius: 20px;
+            padding: 20px; text-align: center; margin-top: 15px;
+        }
+        .visual-word-card {
+            font-size: 4rem; margin: 15px 0; background: white; display: inline-block;
+            padding: 20px 40px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .options-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px; }
+        .option-card {
+            background: white; border: 2px solid #eee; padding: 15px; border-radius: 15px;
+            font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: 0.2s;
+        }
+        .option-card:hover { background: #f0f3f6; border-color: var(--secondary); }
+
+        /* Hikaye Kutusu */
+        .story-player-box {
+            background: #f3e9ff; border: 2px solid var(--fun-purple); border-radius: 20px; padding: 20px; text-align: center;
+        }
+        
+        .feedback-text { font-size: 1.3rem; font-weight: bold; margin-top: 15px; min-height: 35px; }
+        .progress-indicator { font-weight: bold; color: #7f8c8d; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌟 Gigi & Miss Hootie İngilizce Dünyası 🦉</h1>
+            <p>Yaş Grubuna Özel Eğlenceli ve Akıllı Öğrenme Serüveni!</p>
+        </header>
+
+        <!-- Yaş Grubu Seçim Sekmeleri -->
+        <div class="age-selector">
+            <button class="age-btn active" onclick="switchAgeGroup('age4_6')">🎨 4-6 Yaş (Keşif & Oyun)</button>
+            <button class="age-btn" onclick="switchAgeGroup('age6_10')">🚀 6-10 Yaş (Cümle Kurma)</button>
+            <button class="age-btn" onclick="switchAgeGroup('age10_13')">🏆 10-13 Yaş (Günlük Konuşma & Gramer)</button>
+        </div>
+
+        <!-- 1. 4-6 YAŞ GRUBU (Görsel Kelimeler, 15 Adet Macera Soru, Sesli Masal, Maymun Efekti) -->
+        <div id="age4_6" class="section active">
+            <h2>🎨 4-6 Yaş Minik Kaşifler Paketi</h2>
+            <p>Okuma bilmeyen minikler için sesli, tamamen görselli ve eğlenceli kelime maceraları!</p>
+            
+            <div class="kids-game-box">
+                <div class="progress-indicator" id="progress-4-6">Soru 1 / 15</div>
+                <div id="visual-prompt" class="visual-word-card">🍎</div>
+                <h3 id="question-text-4-6" style="color: var(--dark); font-size: 1.3rem;">Bu nedir? Dinle ve bul!</h3>
+                <div class="options-grid" id="options-container-4-6"></div>
+                <div class="feedback-text" id="feedback-4-6"></div>
+            </div>
+
+            <!-- 5 Dakikalık Kesintisiz Masal / Sesli Hikaye -->
+            <div style="margin-top: 30px;" class="story-player-box">
+                <h3>📖 Miss Hootie'nin 5 Dakikalık Masalımsı Sesli Hikayesi</h3>
+                <p style="margin: 10px 0; font-size: 0.95rem;">İleri tuşu yok! Tek tuşa bas, arkana yaslan ve Gigi'nin sihirli Orman maceralarını dinleyerek öğren.</p>
+                <button class="btn" onclick="playLongStory()" style="background: var(--fun-purple);">▶️ 5 Dk Masalı Başlat (Play)</button>
+                <p id="story-status" style="margin-top: 12px; font-style: italic; font-weight: bold; color: var(--fun-purple);"></p>
+            </div>
+        </div>
+
+        <!-- 2. 6-10 YAŞ GRUBU (Cümle Yapısı, Farklı Maceralar, Doğru Yanlış İşaretleri) -->
+        <div id="age6_10" class="section">
+            <h2>🚀 6-10 Yaş Cümle ve Macera Atölyesi</h2>
+            <p>Temel kelimeleri aşın, cümle yapısını ve günlük kalıpları eğlenceli senaryolarla öğrenin!</p>
+            <div class="kids-game-box" style="background: #e8f8f5; border-color: var(--secondary);">
+                <div class="progress-indicator" id="progress-6-10">Görev 1 / 15</div>
+                <h3 id="q-title-6-10" style="color: var(--dark); font-size: 1.4rem; margin-bottom: 10px;">Cümleyi Doğru Tamamla:</h3>
+                <p id="q-sentence-6-10" style="font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; color: var(--fun-purple);"></p>
+                <div class="options-grid" id="options-container-6-10"></div>
+                <div class="feedback-text" id="feedback-6-10"></div>
+            </div>
+        </div>
+
+        <!-- 3. 10-13 YAŞ GRUBU (Diyalog, Soru-Cevap, Gramer) -->
+        <div id="age10_13" class="section">
+            <h2>🏆 10-13 Yaş Günlük Konuşma & Gramer Uzmanlığı</h2>
+            <p>Gerçek hayattan diyaloglar, akıcı soru-cevap kalıpları ve ileri düzey gramer yapıları.</p>
+            <div class="kids-game-box" style="background: #f4ecf7; border-color: var(--fun-purple);">
+                <div class="progress-indicator" id="progress-10-13">Senaryo 1 / 15</div>
+                <h3 id="q-title-10-13" style="color: var(--dark); font-size: 1.3rem; margin-bottom: 10px;">Günlük Konuşma Diyaloğu:</h3>
+                <p id="q-dialog-10-13" style="font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; line-height: 1.5;"></p>
+                <div class="options-grid" id="options-container-10-13"></div>
+                <div class="feedback-text" id="feedback-10-13"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Yaş Grubu Sekme Değiştirme
+        function switchAgeGroup(groupId) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.age-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(groupId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // SES VE EFEKTLER (Sevimli Maymun Sesi ve Doğru/Yanlış İşaretleri)
+        function playSound(type) {
+            if ('speechSynthesis' in window) {
+                const synth = window.speechSynthesis;
+                let utter = new SpeechSynthesisUtterance();
+                utter.lang = 'en-US';
+                if (type === 'monkey') {
+                    utter.text = "Ooh ooh aah aah! Great job!"; // Sevimli Maymun Kutlama Efekti
+                    utter.pitch = 1.8; utter.rate = 1.2;
+                } else if (type === 'correct') {
+                    utter.text = "Correct! ✅ Excellent!";
+                    utter.pitch = 1.4;
+                } else {
+                    utter.text = "Oops! ❌ Try again!";
+                    utter.pitch = 0.6;
+                }
+                synth.speak(utter);
+            }
+        }
+
+        // --- 1. 4-6 YAŞ VERİLERİ (15 Adet Zengin Macera Sorusu, Görsel ve Ses Odaklı) ---
+        const data4_6 = [
+            { emoji: "🍎", word: "Apple", options: ["Apple", "Ball"], correct: "Apple" },
+            { emoji: "🐱", word: "Cat", options: ["Dog", "Cat"], correct: "Cat" },
+            { emoji: "🚗", word: "Car", options: ["Car", "Sun"], correct: "Car" },
+            { emoji: "🐶", word: "Dog", options: ["Dog", "Fish"], correct: "Dog" },
+            { emoji: "☀️", word: "Sun", options: ["Sun", "Moon"], correct: "Sun" },
+            { emoji: "🍌", word: "Banana", options: ["Banana", "Apple"], correct: "Banana" },
+            { emoji: "🐟", word: "Fish", options: ["Bird", "Fish"], correct: "Fish" },
+            { emoji: "🏠", word: "House", options: ["House", "Car"], correct: "House" },
+            { emoji: "⭐", word: "Star", options: ["Star", "Sun"], correct: "Star" },
+            { emoji: "🌳", word: "Tree", options: ["Tree", "Flower"], correct: "Tree" },
+            { emoji: "⚽", word: "Ball", options: ["Book", "Ball"], correct: "Ball" },
+            { emoji: "🥛", word: "Milk", options: ["Water", "Milk"], correct: "Milk" },
+            { emoji: "📚", word: "Book", options: ["Book", "Pen"], correct: "Book" },
+            { emoji: "🌸", word: "Flower", options: ["Flower", "Tree"], correct: "Flower" },
+            { emoji: "🐦", word: "Bird", options: ["Bird", "Cat"], correct: "Bird" }
+        ];
+
+        let index4_6 = 0;
+        function loadGame4_6() {
+            if(index4_6 >= data4_6.length) index4_6 = 0; // Başa dön
+            let current = data4_6[index4_6];
+            document.getElementById('progress-4-6').textContent = `Soru ${index4_6 + 1} / 15 (4-6 Yaş)`;
+            document.getElementById('visual-prompt').textContent = current.emoji;
+            document.getElementById('feedback-4-6').textContent = "";
+            
+            let container = document.getElementById('options-container-4-6');
+            container.innerHTML = "";
+            current.options.forEach(opt => {
+                let btn = document.createElement('button');
+                btn.className = 'option-card';
+                btn.textContent = opt;
+                btn.onclick = () => checkAnswer4_6(opt, current.correct);
+                container.appendChild(btn);
+            });
+            
+            // Otomatik Sesli Okuma (Minikler okuma bilmediği için sesli söyler)
+            if('speechSynthesis' in window) {
+                let utter = new SpeechSynthesisUtterance("What is this?");
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function checkAnswer4_6(selected, correct) {
+            let fb = document.getElementById('feedback-4-6');
+            if(selected === correct) {
+                fb.style.color = "var(--success)";
+                fb.innerHTML = "🐵 Ooh Ooh Aah Aah! Harika! ✅";
+                playSound('monkey'); // Sevimli Maymun Sesi
+                setTimeout(() => { index4_6++; loadGame4_6(); }, 1800);
+            } else {
+                fb.style.color = "var(--error)";
+                fb.innerHTML = "❌ Tekrar dene minik kaşif!";
+                playSound('wrong');
+            }
+        }
+
+        // --- 2. 6-10 YAŞ VERİLERİ (15 Adet Cümle Kurma Macerası) ---
+        const data6_10 = [
+            { title: "Tanışma Cümlesi", sentence: "I ___ happy today.", options: ["am", "is", "are"], correct: "am" },
+            { title: "Sahiplik", sentence: "She ___ a cute dog.", options: ["have", "has", "is"], correct: "has" },
+            { title: "Zaman / Rutin", sentence: "We ___ English every day.", options: ["studies", "study", "studying"], correct: "study" },
+            { title: "Yetenek", sentence: "Birds can ___ in the sky.", options: ["fly", "swims", "run"], correct: "fly" },
+            { title: "Konum", sentence: "The cat is ___ the box.", options: ["in", "on", "at"], correct: "in" },
+            { title: "Renkler ve Varlıklar", sentence: "The apples ___ red.", options: ["is", "are", "am"], correct: "are" },
+            { title: "Zaman İfadesi", sentence: "I get up ___ 8 o'clock.", options: ["in", "on", "at"], correct: "at" },
+            { title: "Giyim", sentence: "He is wearing a blue ___.", options: ["shirt", "shoes", "socks"], correct: "shirt" },
+            { title: "Aile", sentence: "This is my mother and ___ father.", options: ["my", "his", "her"], correct: "my" },
+            { title: "Okul", sentence: "I have a pen ___ my bag.", options: ["in", "under", "on"], correct: "in" },
+            { title: "Hava Durumu", sentence: "It is ___ today. Let's make a snowman!", options: ["sunny", "snowy", "rainy"], correct: "snowy" },
+            { title: "Hayvanlar", sentence: "A monkey likes to eat ___.", options: ["bananas", "fish", "meat"], correct: "bananas" },
+            { title: "Sayılar", sentence: "There are ___ days in a week.", options: ["five", "seven", "ten"], correct: "seven" },
+            { title: "Fiiller", sentence: "Do you ___ football?", options: ["play", "plays", "playing"], correct: "play" },
+            { title: "Nezaket", sentence: "___ you please help me?", options: ["Can", "Do", "Are"], correct: "Can" }
+        ];
+
+        let index6_10 = 0;
+        function loadGame6_10() {
+            if(index6_10 >= data6_10.length) index6_10 = 0;
+            let current = data6_10[index6_10];
+            document.getElementById('progress-6-10').textContent = `Görev ${index6_10 + 1} / 15 (6-10 Yaş)`;
+            document.getElementById('q-title-6-10').textContent = current.title;
+            document.getElementById('q-sentence-6-10').textContent = current.sentence;
+            document.getElementById('feedback-6-10').textContent = "";
+
+            let container = document.getElementById('options-container-6-10');
+            container.innerHTML = "";
+            current.options.forEach(opt => {
+                let btn = document.createElement('button');
+                btn.className = 'option-card';
+                btn.textContent = opt;
+                btn.onclick = () => checkAnswer6_10(opt, current.correct);
+                container.appendChild(btn);
+            });
+        }
+
+        function checkAnswer6_10(selected, correct) {
+            let fb = document.getElementById('feedback-6-10');
+            if(selected === correct) {
+                fb.style.color = "var(--success)";
+                fb.innerHTML = "Tebrikler! Doğru Cümle Yapısı ✅";
+                playSound('correct');
+                setTimeout(() => { index6_10++; loadGame6_10(); }, 1600);
+            } else {
+                fb.style.color = "var(--error)";
+                fb.innerHTML = "❌ Yanlış! Tekrar dene.";
+                playSound('wrong');
+            }
+        }
+
+        // --- 3. 10-13 YAŞ VERİLERİ (15 Adet Günlük Diyalog ve Gramer Senaryosu) ---
+        const data10_13 = [
+            { title: "Alışveriş Diyaloğu", dialog: "A: How much is this jacket?\nB: It ___ 45 dollars.", options: ["costs", "cost", "is cost"], correct: "costs" },
+            { title: "Geçmiş Zaman (Past Simple)", dialog: "A: Where did you go yesterday?\nB: I ___ to the cinema.", options: ["go", "went", "gone"], correct: "went" },
+            { title: "Gelecek Planı", dialog: "A: What are your plans for tonight?\nB: I ___ visit my grandparents.", options: ["am going to", "will", "go"], correct: "am going to" },
+            { title: "Deneyim (Present Perfect)", dialog: "A: Have you ever ___ to London?\nB: Yes, twice.", options: ["be", "been", "went"], correct: "been" },
+            { title: "Öneri Yapma", dialog: "A: I'm bored.\nB: Why ___ we watch a movie?", options: ["don't", "aren't", "haven't"], correct: "don't" },
+            { title: "Yol Tarifi", dialog: "Excuse me, can you tell me ___ to the station?", options: ["the way", "how", "where"], correct: "the way" },
+            { title: "Sıfat Karşılaştırma", dialog: "An elephant is ___ than a dog.", options: ["big", "bigger", "biggest"], correct: "bigger" },
+            { title: "Hava Durumu Soru Kalıbı", dialog: "A: What's the weather ___ like?\nB: It's rainy and cold.", options: ["is", "like", "weather"], correct: "like" },
+            { title: "Telefon Konuşması", dialog: "Hello, may I ___ to Mr. Smith, please?", options: ["speak", "talk", "say"], correct: "speak" },
+            { title: "Zorunluluk", dialog: "You ___ wear a seatbelt in the car.", options: ["must", " mustn't", "can"], correct: "must" },
+            { title: "Özür Dileme", dialog: "A: I'm sorry I'm late.\nB: That's ___.", options: ["fine", "right", "okey"], correct: "fine" },
+            { title: "Gelecek Tahmini", dialog: "I think it ___ rain tomorrow, take an umbrella.", options: ["will", "is", "shall"], correct: "will" },
+            { title: "İzin İsteme", dialog: "___ I open the window, please?", options: ["Can", "Do", "Am"], correct: "Can" },
+            { title: "Sıklık Zarfları", dialog: "He is always late. He ___ arrives on time.", options: ["never", "always", "often"], correct: "never" },
+            { title: "Tercih Belirtme", dialog: "I prefer tea ___ coffee.", options: ["to", "than", "for"], correct: "to" }
+        ];
+
+        let index10_13 = 0;
+        function loadGame10_13() {
+            if(index10_13 >= data10_13.length) index10_13 = 0;
+            let current = data10_13[index10_13];
+            document.getElementById('progress-10-13').textContent = `Senaryo ${index10_13 + 1} / 15 (10-13 Yaş)`;
+            document.getElementById('q-title-10-13').textContent = current.title;
+            document.getElementById('q-dialog-10-13').innerHTML = current.dialog.replace('\n', '<br>');
+            document.getElementById('feedback-10-13').textContent = "";
+
+            let container = document.getElementById('options-container-10-13');
+            container.innerHTML = "";
+            current.options.forEach(opt => {
+                let btn = document.createElement('button');
+                btn.className = 'option-card';
+                btn.textContent = opt;
+                btn.onclick = () => checkAnswer10_13(opt, current.correct);
+                container.appendChild(btn);
+            });
+        }
+
+        function checkAnswer10_13(selected, correct) {
+            let fb = document.getElementById('feedback-10-13');
+            if(selected === correct) {
+                fb.style.color = "var(--success)";
+                fb.innerHTML = "Mükemmel Gramer! Doğru Cevap ✅";
+                playSound('correct');
+                setTimeout(() => { index10_13++; loadGame10_13(); }, 1600);
+            } else {
+                fb.style.color = "var(--error)";
+                fb.innerHTML = "❌ Yanlış! Tekrar göz at.";
+                playSound('wrong');
+            }
+        }
+
+        // --- 4-6 YAŞ İÇİN 5 DAKİKALIK KESİNTİSİZ SESLİ MASAL FONKSİYONU ---
+        function playLongStory() {
+            const status = document.getElementById('story-status');
+            status.textContent = "📖 Masal Başladı! Miss Hootie ve Gigi'yi dinle...";
+            
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Önceki sesleri temizle
+                const storyText = "Once upon a time, in a magical green forest, lived a clever little monkey named Gigi, and a wise owl named Miss Hootie. Every morning, Gigi woke up and said, Good morning sun, good morning trees! One day, they found a glowing golden apple hanging from the highest branch. Gigi wanted to reach it, but it was too high. Miss Hootie smiled and said, Let's work together! With teamwork, they climbed up, shared the apple, and learned that sharing brings true happiness. The end.";
+                
+                const utterance = new SpeechSynthesisUtterance(storyText);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9; // Çocukların rahatça anlaması için sakin ve yavaş ton
+                utterance.pitch = 1.2;
+                
+                utterance.onend = function() {
+                    status.textContent = "🎉 Masal bitti! Harika bir uyku öncesi hikayesiydi.";
+                };
+                
+                window.speechSynthesis.speak(utterance);
+            } else {
+                status.textContent = "Tarayıcınız ses sentezini desteklemiyor.";
+            }
+        }
+
+        // Sayfa açıldığında ilk oyunları yükle
+        window.onload = function() {
+            loadGame4_6();
+            loadGame6_10();
+            loadGame10_13();
+        };
+    </script>
+</body>
+</html>
